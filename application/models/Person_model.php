@@ -402,7 +402,13 @@ class Person_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function get_persons_with_credit_by_cutoff_and_dept($params){
+	public function get_persons_with_credit_by_cutoff_and_dept($params,$department_id){
+		$department_condition = "";
+
+		if($department_id != "all"){
+			$department_condition = "AND p.department_id = " . $department_id;
+		} 
+		
 		$sql = "SELECT p.id person_id,
 				       pt.person_type_name,
 				       p.employee_no,
@@ -430,7 +436,7 @@ class Person_model extends CI_Model {
 				WHERE p.salary_deduction > 0
 				      AND pt.id = 1 
 				      AND p.person_state_id = 1 -- to get active employees
-				      AND p.department_id = ?";
+				      {$department_condition}";
 		$query = $this->db->query($sql,$params);
 		return $query->result();
 	}

@@ -773,17 +773,16 @@ class Employee extends MY_Controller {
         $from_date = $this->input->post('from_date');
         $end_date = $this->input->post('end_date');
 
-
-        
         $person_type_id = 1; // mdi employees
         if($department_id != 0){
-            $params = array($from_date,$end_date,$department_id);
-            $employees_list = $this->person_model->get_persons_with_credit_by_cutoff_and_dept($params);
+            $params = array($from_date,$end_date);
+            $employees_list = $this->person_model->get_persons_with_credit_by_cutoff_and_dept($params,$department_id);
         }
         else {
             $params = array($from_date,$end_date);
             $employees_list = $this->person_model->get_persons_with_credit_by_cutoff($params);
         }
+
         $ctr = 1;
         foreach($employees_list as $emp){
             if($emp->credit_amount > 0){
@@ -797,7 +796,6 @@ class Employee extends MY_Controller {
                 echo "</tr>";
                 $ctr++;
            }
-           
         }
     }
     

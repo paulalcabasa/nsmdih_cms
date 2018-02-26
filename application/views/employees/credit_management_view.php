@@ -11,112 +11,78 @@
              <input type="hidden" name="employee_type" value="1"/><!--  employee type is same as person type 1 which is MDI employee -->
         </form>
              <?php
-           /*  $ids = "1,2,4,5";
-             $ids = explode(",",$ids);
-             $ids_list = "";
-
-            foreach($ids as $i){
-                $ids_list .= $i . ",";
-                
-            }
-
-         $ids_list = substr($ids_list,0,-1);
-            var_dump($ids_list);*/
-               // $current_date = date('Y-m-d');
-               // $date = DateTime::createFromFormat("Y-m-d", $current_date);
-               // $interval = new DateInterval("P2M"); // 4 months
-               // $start_date = $date->sub($interval);
-              //  $start_date = $start_date->format("Y-m-d");
+    
                 $start_date = date( 'Y-m-d', strtotime( 'sunday last week' ) );
                 $end_date = date( 'Y-m-d', strtotime( 'saturday this week' ) );
-                ?>
+            ?>
         <div class="box box-primary" > <!-- Default box -->
             <div class="box-header with-border">
-                <h3 class="box-title">Cut Off Date</h3>
-            </div>
-
-            <div class="box-body">
-                <div class="col-md-6">
-                 <form class="form-horizontal">
-                    <div class="form-group">  
-                        <input type="text" class="form-control" id="txt_display_date"  value="<?php echo format_date_slash($start_date) . ' - ' . format_date_slash($end_date);?>"/>
-                        <input type="hidden" id="txt_from_date" value="<?php echo ($start_date);?>"/>
-                        <input type="hidden" id="txt_end_date" value="<?php echo ($end_date);?>"/>
-                    </div>
-                </form>
-                </div>
-            </div> <!-- /.box-body -->
-        </div><!-- /.box -->
-   
-
-        <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-                <?php
-                    $ctr = 1;
-                    $initial_list = 0;
-                    foreach($departments as $row){
-                        $is_active = $ctr == 1 ? "active" : "";
-                        if($ctr == 1){
-                            $initial_list = $row->id;
-                        }
-                ?> 
-                    <li class="<?php echo $is_active?>">
-                        <a href="#employees_list" 
-                           id="btn_get_employees" 
-                           data-department_id="<?php echo $row->id;?>" 
-                           data-toggle="tab" 
-                           aria-expanded="true"
-                           class="btn_get_employees"
-                        ><?php echo $row->department_name;?></a>
-                    </li>
-                <?php
-                        $ctr++;
-                    }
-                ?>  
-                 <li>
-                        <a href="#employees_list" 
-                           id="btn_get_employees" 
-                           data-department_id="0" 
-                           data-toggle="tab" 
-                           aria-expanded="true"
-                           class="btn_get_employees"
-                        >All</a>
-                    </li>
-                <li class="dropdown pull-right">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Action <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
+                <h3 class="box-title">Credit Management</h3>
+                <div class="dropdown pull-right">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Action
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                         <?php if(in_array($user_type_id,array(3,16))) { ?>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="btn_export_credits">Export Credits List</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" id="btn_upload_debit">Upload Debits</a></li>
                         <?php } ?>
                         <li role="presentation"><a role="menuitem" tabindex="-1" id="btn_print">Print</a></li>
                     </ul>
-                </li>       
-             </ul>
-            <div class="tab-content">
-              <div class="tab-pane active" >
-                    <table class="table display" width="100%" cellspacing="0" id="employees_list">
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox" id="cb_main"/></th>
-                                <th>No</th>
-                                <th>Customer Type</th>
-                                <th>Employee No</th>
-                                <th>Name</th>
-                                <th>Credit Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-              </div>
-            
+                </div>                    
             </div>
-            <!-- /.tab-content -->
-        </div>
 
-       
+            <div class="box-body">
+                <div class="container">
+                    <div class="col-md-6">
+                        <form class="form-horizontal">
+                            <div class="form-group">  
+                                <label class="control-label">Cut-off Date</label>
+                                <input type="text" class="form-control" id="txt_display_date"  value="<?php echo format_date_slash($start_date) . ' - ' . format_date_slash($end_date);?>"/>
+                                <input type="hidden" id="txt_from_date" value="<?php echo ($start_date);?>"/>
+                                <input type="hidden" id="txt_end_date" value="<?php echo ($end_date);?>"/>
+                            </div>
+                            <div class="form-group">  
+                                <label class="control-label">Department</label>
+                                <select class="form-control" id="sel_department_id">
+                                    <option value="all">All</option>
+                                <?php
+                                    foreach($departments as $row){
+                                ?>
+                                    <option value="<?php echo $row->id;?>"><?php echo $row->department_name;?></option>
+                                <?php
+                                    }
+                                ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary" id="btn_generate">Generate</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table display" width="100%" cellspacing="0" id="employees_list">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="cb_main"/></th>
+                                    <th>No</th>
+                                    <th>Customer Type</th>
+                                    <th>Employee No</th>
+                                    <th>Name</th>
+                                    <th>Credit Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- /.box-body -->
+        </div><!-- /.box -->
+      
     </section> <!-- /.content -->
 </div><!-- /.content-wrapper -->
 
@@ -137,11 +103,11 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
+<script src="<?php echo base_url();?>/plugins/jquery-block-ui/jquery-block-ui.js"></script>
 
 <script>
 var $idown;  // Keep it outside of the function, so it's initialized once.
-var department_id = "<?php echo $initial_list;?>";
+var department_id = 0;
 function load_employees(department_id,from_date,to_date){
    $.ajax({
         type:"POST",
@@ -152,7 +118,7 @@ function load_employees(department_id,from_date,to_date){
         },
         url:"ajax_get_employees_with_credit_by_department",
         success:function(response){
-
+            $.unblockUI();
             $("#employees_list tbody").html(response);
             table =  $('#employees_list').DataTable( {
                 "scrollY":        "350px",
@@ -183,7 +149,16 @@ $(document).ready(function(){
 
     //load_employees(department_id,$("#txt_from_date").val(),$("#txt_end_date").val());
 
-    $("body").on("click",".btn_get_employees",function(){
+    $("#btn_generate").click(function(){
+        $("#employees_list tbody").html('<tr><td colspan="5">Please wait...</td></tr>');
+        var department_id = $("#sel_department_id").val();
+        table.destroy();
+        $.blockUI({ message: '<h1>Please wait...</h1>' });
+        var from_date = $("#txt_from_date").val();
+        var to_date = $("#txt_end_date").val();
+        load_employees(department_id,from_date,to_date);
+    });
+ /*   $("body").on("click",".btn_get_employees",function(){
 
        // $("#employees_list tbody").html('<tr><td colspan="5">Please wait...</td></tr>');
         var department_id = $(this).data('department_id');
@@ -192,7 +167,7 @@ $(document).ready(function(){
         var to_date = $("#txt_end_date").val();
         load_employees(department_id,from_date,to_date);
     });
-
+*/
     $("#cb_main").click(function(){
         if($(this).is(":checked")){
             $(".cb_employee").prop("checked",true);
