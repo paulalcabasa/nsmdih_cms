@@ -183,3 +183,11 @@ ERROR - 2018-02-26 11:22:07 --> Severity: Notice --> Undefined variable: temp_tr
 ERROR - 2018-02-26 11:24:29 --> Severity: Notice --> Undefined variable: temp_transaction_no C:\wamp\www\nsmdih_cms\application\views\transactions\new_transaction.php 45
 ERROR - 2018-02-26 11:25:24 --> Severity: Notice --> Undefined variable: temp_transaction_no C:\wamp\www\nsmdih_cms\application\views\transactions\new_transaction.php 45
 ERROR - 2018-02-26 11:26:04 --> Severity: Notice --> Undefined variable: temp_transaction_no C:\wamp\www\nsmdih_cms\application\views\transactions\new_transaction.php 45
+ERROR - 2018-02-26 13:10:27 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: YES) C:\wamp64\www\nsmdih_cms\system\database\drivers\mysqli\mysqli_driver.php 202
+ERROR - 2018-02-26 13:10:27 --> Unable to connect to the database
+ERROR - 2018-02-26 13:21:29 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: YES) C:\wamp64\www\nsmdih_cms\system\database\drivers\mysqli\mysqli_driver.php 202
+ERROR - 2018-02-26 13:21:29 --> Unable to connect to the database
+ERROR - 2018-02-26 13:23:06 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: YES) C:\wamp64\www\nsmdih_cms\system\database\drivers\mysqli\mysqli_driver.php 202
+ERROR - 2018-02-26 13:23:06 --> Unable to connect to the database
+ERROR - 2018-02-26 13:23:07 --> Severity: Warning --> mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: YES) C:\wamp64\www\nsmdih_cms\system\database\drivers\mysqli\mysqli_driver.php 202
+ERROR - 2018-02-26 13:23:07 --> Unable to connect to the database

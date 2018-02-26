@@ -27,7 +27,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //$config['base_url'] = 'http://localhost:8080/nsmdih_cms/';
 
 //$config['base_url'] = 'http://localhost/nsmdih_cms/';
-$config['base_url'] = 'http://192.168.0.2/nsmdih_cms/';
+//$config['base_url'] = 'http://192.168.0.2/nsmdih_cms/';
+$config['base_url'] = 'http://'.$_SERVER['HTTP_HOST'].'/nsmdih_cms/';
 /*/
 |--------------------------------------------------------------------------
 | Index File
