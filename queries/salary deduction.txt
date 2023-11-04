@@ -1,0 +1,42 @@
+SELECT *
+FROM persons
+WHERE EMPLOYEE_NO = '28-192'
+
+SELECT *
+FROM transaction_headers
+WHERE person_id = 2;
+
+select sum(tp.amount)
+from transaction_headers th 
+	LEFT JOIN transaction_payments tp
+    	ON th.id = tp.transaction_header_id
+where th.person_id = 2;
+
+
+select sum(tp.amount)
+from transaction_headers th 
+	LEFT JOIN transaction_payments tp
+    	ON th.id = tp.transaction_header_id
+        AND tp.payment_mode_id = 5
+where th.person_id = 2;
+
+select sum(tp.amount)
+from transaction_headers th 
+	LEFT JOIN transaction_payments tp
+    	ON th.id = tp.transaction_header_id
+        AND tp.payment_mode_id = 5
+where 1 = 1
+	and date(th.date_created) between '2018-10-21' AND '2018-11-05';
+
+select sum(tp.amount)
+from transaction_headers th 
+	LEFT JOIN transaction_payments tp
+    	ON th.id = tp.transaction_header_id
+        AND tp.payment_mode_id = 5
+   LEFT JOIN persons p
+   		ON p.id = th.person_id
+     	and p.person_type_id = 3
+where 1 = 1
+	
+    and date(th.date_created) between '2018-10-21' AND '2018-11-05'
+  

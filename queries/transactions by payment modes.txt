@@ -1,0 +1,21 @@
+select *
+from transaction_payments tp 
+	left join transaction_headers th 
+    	on th.id = tp.transaction_header_id
+	left join payment_modes pm
+    	ON TP.payment_mode_id = pm.id
+where pm.mode_of_payment = 'Cash'
+	and th.date_created >= '2019-02-26 05:00:00'
+    and th.date_created >= '2019-02-26 12:45:00'
+
+
+SELECT `tps`.`id` `payment_id`, CONCAT('OR', LPAD(tps.transaction_header_id, 5, '0')) transaction_no, `pt`.`person_type_name` `customer_type`, `th`.`customer_name`, `pm`.`mode_of_payment`, `tps`.`amount`, DATE_FORMAT(th.date_created, '%m/%d/%Y %l:%i %p') transaction_date
+FROM `transaction_payments` `tps`
+LEFT JOIN `payment_modes` `pm` ON `tps`.`payment_mode_id` = `pm`.`id`
+LEFT JOIN `transaction_headers` `th` ON `th`.`id` = `tps`.`transaction_header_id`
+LEFT JOIN `person_types` `pt` ON `pt`.`id` = `th`.`person_type_id`
+WHERE `th`.`transaction_status` = 1
+AND `th`.`date_created` >= '2019-02-26 01:00:00'
+AND `th`.`date_created` <= '2019-02-26 12:45:00'
+AND `tps`.`payment_mode_id` IN('2')
+ORDER BY `th`.`date_created` ASC
